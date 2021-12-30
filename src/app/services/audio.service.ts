@@ -66,11 +66,12 @@ export class AudioService {
       this.audioObj.src = url;
       this.audioObj.load();
       this.audioObj.play();
-
+  
       const handler = (event: Event) => {
+        this.updateStateEvents(event);
         observer.next(event);
       };
-
+  
       this.addEvents(this.audioObj, this.audioEvents, handler);
       return () => {
         // Stop Playing
@@ -78,6 +79,8 @@ export class AudioService {
         this.audioObj.currentTime = 0;
         // remove event listeners
         this.removeEvents(this.audioObj, this.audioEvents, handler);
+        // reset state
+        this.resetState();
       };
     });
   }
@@ -112,6 +115,10 @@ export class AudioService {
   formatTime(time: number, format: string = "HH:mm:ss") {
     const momentTime = time * 1000;
     return moment.utc(momentTime).format(format);
+  }
+
+  getState(): Observable<StreamState> {
+    return this.stateChange.asObservable();
   }
 
   pause() {
