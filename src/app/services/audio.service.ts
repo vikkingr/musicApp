@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject, Subject } from "rxjs";
+import { StreamState } from '../interfaces/stream-state';
 import { takeUntil } from "rxjs/operators";
 import * as moment from "moment";
 
@@ -20,6 +21,44 @@ export class AudioService {
     "loadedmetadata",
     "loadstart"
   ];
+
+  private state: StreamState = {
+    playing: false,
+    readableCurrentTime: '',
+    readableDuration: '',
+    duration: undefined,
+    currentTime: undefined,
+    canplay: false,
+    error: false,
+  };
+
+  private stateChange: BehaviorSubject<StreamState> = new BehaviorSubject(
+    this.state
+  );
+
+  private addEvents(obj, events, handler) {
+    events.forEach(event => {
+      obj.addEventListener(event, handler);
+    });
+  }
+
+  private removeEvents(obj, events, handler) {
+    events.forEach(event => {
+      obj.removeEventListener(event, handler);
+    });
+  }
+
+  private resetState() {
+    this.state = {
+      playing: false,
+      readableCurrentTime: '',
+      readableDuration: '',
+      duration: undefined,
+      currentTime: undefined,
+      canplay: false,
+      error: false
+    };
+  }
 
   private streamObservable(url) {
     return new Observable(observer => {
@@ -43,16 +82,31 @@ export class AudioService {
     });
   }
 
-  private addEvents(obj, events, handler) {
-    events.forEach(event => {
-      obj.addEventListener(event, handler);
-    });
-  }
-
-  private removeEvents(obj, events, handler) {
-    events.forEach(event => {
-      obj.removeEventListener(event, handler);
-    });
+  private updateStateEvents(event: Event): void {
+    switch (event.type) {
+      case "canplay":
+        this.state.duration = this.audioObj.duration;
+        this.state.readableDuration = this.formatTime(this.state.duration);
+        this.state.canplay = true;
+        break;
+      case "playing":
+        this.state.playing = true;
+        break;
+      case "pause":
+        this.state.playing = false;
+        break;
+      case "timeupdate":
+        this.state.currentTime = this.audioObj.currentTime;
+        this.state.readableCurrentTime = this.formatTime(
+          this.state.currentTime
+        );
+        break;
+      case "error":
+        this.resetState();
+        this.state.error = true;
+        break;
+    }
+    this.stateChange.next(this.state);
   }
 
   formatTime(time: number, format: string = "HH:mm:ss") {
