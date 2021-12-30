@@ -8,7 +8,7 @@ import * as moment from "moment";
   providedIn: "root"
 })
 export class AudioService {
-  private stop$ = new Subject();
+  private stop$ = new Subject<void>();
   private audioObj = new Audio();
   audioEvents = [
     "ended",
@@ -138,7 +138,7 @@ export class AudioService {
   }
 
   stop() {
-    this.stop$.next(null);
+    this.stop$.next();
   }
 
 }
