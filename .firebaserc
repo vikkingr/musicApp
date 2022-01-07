@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "banger-1": {
+      "hosting": {
+        "angular-audio-fire": [
+          "banger-1"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "banger-1"
+  }
+}

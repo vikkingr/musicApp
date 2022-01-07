@@ -5,6 +5,9 @@ import { of } from "rxjs";
   providedIn: "root"
 })
 export class CloudService {
+  
+  fileNames: Array<String> = [];
+
   files: any = [
     // tslint:disable-next-line: max-line-length
     {
