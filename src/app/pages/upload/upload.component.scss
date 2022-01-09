@@ -1,8 +1,13 @@
-.container {
+.upload-container {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
     align-content: stretch;
+}
+
+.back-btn {
+    margin-right: 5px;
+    cursor: pointer;
 }

@@ -1,37 +1,33 @@
 import { Injectable } from "@angular/core";
-import { of } from "rxjs";
+import { Observable, of } from "rxjs";
+import { AngularFireStorage } from "@angular/fire/compat/storage";
 
 @Injectable({
   providedIn: "root"
 })
 export class CloudService {
-  
-  fileNames: Array<String> = [];
 
-  files: any = [
-    // tslint:disable-next-line: max-line-length
-    {
-      url:
-        "http://localhost:3000/bombayy.wav",
-      name: "bombayy",
-      artist: "Robi"
-    },
-    {
-      // tslint:disable-next-line: max-line-length
-      url:
-        "https://ia801609.us.archive.org/16/items/nusratcollection_20170414_0953/Man%20Atkiya%20Beparwah%20De%20Naal%20Nusrat%20Fateh%20Ali%20Khan.mp3",
-      name: "Man Atkeya Beparwah",
-      artist: "Nusrat Fateh Ali Khan"
-    },
-    {
-      url:
-        "https://ia801503.us.archive.org/15/items/TheBeatlesPennyLane_201805/The%20Beatles%20-%20Penny%20Lane.mp3",
-      name: "Penny Lane",
-      artist: "The Beatles"
-    }
-  ];
+  constructor(private storage: AngularFireStorage) {
+
+    let storageRef = this.storage.ref('uploads');
+    storageRef.listAll().subscribe((response) => {
+      response.items.forEach(item => {
+        item.getDownloadURL().then(response2 => {
+          this.files.push({
+            url: response2,
+            name: item.name,
+            artist: 'Robi'
+          })
+        })
+      })
+    })
+    
+  }
+
+  files: Array<{url: string, name: string, artist: string}> = [];
 
   getFiles() {
     return of(this.files);
   }
+
 }
