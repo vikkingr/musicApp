@@ -2,8 +2,8 @@ export const environment = {
   auth0: {
     clientID: "O2YX3Hev9uifeAhNUttWyMVwUS9XsH3W",
     domain: "dev-nss1-ctg.us.auth0.com",
-    redirectUri: "http://localhost:4200",
-    logoutUrl: "http://localhost:4200"
+    redirectUri: "https://banger-1.web.app/",
+    logoutUrl: "https://banger-1.web.app/"
   },
   firebase: {
     projectId: 'banger-1',

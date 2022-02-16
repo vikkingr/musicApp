@@ -12,7 +12,12 @@
           <mat-icon color="warn">music_note</mat-icon>
           <div>Audio Player</div>
         </div>
-        <mat-list color="secondary" *ngIf="auth.authenticated">
+        <div class="container" *ngIf="files.length === 0">
+            <div class="content logo red">
+                Loading Tracks...
+            </div>
+        </div>
+        <mat-list color="secondary">
             <h3 mat-subheader>Songs</h3>
             <mat-list-item *ngFor="let file of files; let i = index" (click)="openFile(file, i)">
                 <mat-icon color="warning" mat-list-icon>music_note</mat-icon>
