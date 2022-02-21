@@ -1,6 +1,6 @@
 <div class="container">
     <mat-toolbar color="primary" class="main-toolbar">
-        <span>Audio Player</span>
+        <span>Banger</span>
         <span class="spacer"></span>
         <span class="toolbar-btn" *ngIf="!auth.authenticated" (click)="auth.login()">LOGIN </span>
         <span class="toolbar-btn" *ngIf="auth.authenticated" (click)="auth.logout()">LOGOUT</span>
@@ -10,7 +10,7 @@
     <div class="content">
         <div class="logo">
           <mat-icon color="warn">music_note</mat-icon>
-          <div>Audio Player</div>
+          <div>Banger</div>
         </div>
         <div class="container" *ngIf="files.length === 0">
             <div class="content logo red">

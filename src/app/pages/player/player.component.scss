@@ -28,8 +28,9 @@
     }
   
     .media-footer {
-      position: absolute;
+      position: sticky;
       width: 100%;
+      bottom: 0%;
       .time-slider {
         width: 100% !important;
         margin-left: 20px;
