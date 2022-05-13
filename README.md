@@ -1,5 +1,12 @@
 # AngularAudioFire
 
+Hello!
+This app contains my music!
+I can upload music, and play my music!
+
+BUG/FEATURE NOTE
+- Robi (Robert Veinberg-Vikking) is hardcoded as the author. I have another friend who is also Robert that uploaded .mp3 files, so here's credit to him!
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
 
 ## Development server
